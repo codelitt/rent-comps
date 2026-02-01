@@ -1,0 +1,137 @@
+# Birmingham AL Metro Configuration
+# Comp collection configuration for the Birmingham-Hoover metroplex
+
+metro:
+  name: Birmingham-Hoover
+  slug: birmingham_al
+  state: AL
+
+# Subject property - the property we're analyzing
+subject:
+  name: The Kenzie
+  address: 4501 Old Caldwell Mill Rd, Birmingham, AL 35242
+  apartments_com_id: the-kenzie-birmingham-al
+  submarket: Highway 280 Corridor
+  units: 213
+  year_built: 1973
+  stories: 2
+  class: B
+  unit_mix:
+    - type: 1BR
+      code: A1
+      name: Altadena 1x1
+      beds: 1
+      baths: 1
+      avg_sf: 852
+      units: 32
+    - type: 1BR
+      code: A2
+      name: Hearthstone 1x1
+      beds: 1
+      baths: 1
+      avg_sf: 980
+      units: 51
+    - type: 2BR
+      code: B1
+      name: Riverwood 2x1
+      beds: 2
+      baths: 1
+      avg_sf: 980
+      units: 22
+    - type: 2BR
+      code: B2
+      name: Cahaba 2x2
+      beds: 2
+      baths: 2
+      avg_sf: 1276
+      units: 83
+    - type: 2BR
+      code: B3
+      name: Lull 2x1.5
+      beds: 2
+      baths: 1.5
+      avg_sf: 1370
+      units: 25
+
+# Competitive set properties
+comps:
+  - name: The Abbey at Inverness
+    address: 1000 Hunt Cliff Rd, Birmingham, AL 35242
+    apartments_com_id: the-abbey-at-inverness-birmingham-al
+    website: https://www.abbeyresidential.com/apartments/al/birmingham/hunt-cliff-road/
+    distance_mi: 2.5
+    units: 801
+    year_built: 1986
+    stories: 2
+    class: B
+
+  - name: Woodmere Creek Apartments
+    address: 779 Woodmere Creek Dr, Birmingham, AL 35226
+    apartments_com_id: woodmere-creek-apartments-birmingham-al
+    website: https://www.woodmerecreekapartments.com/
+    distance_mi: 5.2
+    units: 300
+    year_built: 1986
+    stories: 2
+    class: B
+
+  - name: Turtle Lake Apartment Homes
+    address: 1 Turtle Lake Dr, Birmingham, AL 35242
+    apartments_com_id: turtle-lake-apartment-homes-birmingham-al
+    website: https://www.myturtlelake.com/
+    distance_mi: 1.8
+    units: 184
+    year_built: 1987
+    stories: 2
+    class: B
+
+  - name: Colony Woods
+    address: 2000 Colony Park Dr, Birmingham, AL 35243
+    apartments_com_id: colony-woods-birmingham-al
+    website: https://www.colonywoodsbirmingham.com/
+    distance_mi: 3.5
+    units: 414
+    year_built: 1995
+    stories: 3
+    class: B
+
+  - name: The Onyx Hoover
+    address: 990 Wisteria Pl, Hoover, AL 35216
+    apartments_com_id: the-onyx-hoover-apartments-hoover-al
+    website: https://www.onyxhooverapts.com/
+    distance_mi: 4.8
+    units: 323
+    year_built: 1975
+    stories: 3
+    class: B
+
+  - name: Cahaba Grandview
+    address: 2800 Riverview Rd, Birmingham, AL 35242
+    apartments_com_id: cahaba-grandview-birmingham-al
+    website: https://cahabagrandview.com/
+    distance_mi: 1.2
+    units: 324
+    year_built: 2009
+    stories: 4
+    class: B+
+
+# Data collection settings
+collection:
+  radius_miles: 6.0
+  min_comps: 4
+  max_comps: 8
+  unit_types:
+    - 1BR
+    - 2BR
+    - 3BR
+  data_sources:
+    - apartments.com
+    - property_websites
+    - costar  # requires subscription
+
+# Apartments.com scraping settings (if automated collection is used)
+scraping:
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+  request_delay_seconds: 2
+  max_retries: 3
+  timeout_seconds: 30
