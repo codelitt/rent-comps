@@ -20,8 +20,16 @@ from typing import Any
 import httpx
 import yaml
 from bs4 import BeautifulSoup
+from curl_cffi import requests as curl_requests
 from rich.console import Console
 from rich.table import Table
+
+# Playwright is optional - only used if available
+try:
+    from playwright.sync_api import sync_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
 
 console = Console()
 
@@ -105,7 +113,10 @@ def fetch_apartments_com(
     config: dict[str, Any]
 ) -> tuple[BeautifulSoup | None, str]:
     """
-    Attempt to fetch property data from apartments.com.
+    Attempt to fetch property data from apartments.com using browser impersonation.
+
+    Uses curl_cffi to impersonate browser TLS fingerprints, which bypasses
+    most bot detection systems.
 
     Returns:
         Tuple of (parsed soup or None, error message if failed)
@@ -113,45 +124,102 @@ def fetch_apartments_com(
     url = build_apartments_com_url(property_id)
     scraping_config = config.get("scraping", {})
 
-    headers = {
-        "User-Agent": scraping_config.get(
-            "user_agent",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-    }
-
     timeout = scraping_config.get("timeout_seconds", 30)
     max_retries = scraping_config.get("max_retries", 3)
     delay = scraping_config.get("request_delay_seconds", 2)
 
-    for attempt in range(max_retries):
-        try:
-            time.sleep(delay)  # Be respectful
+    # Browser impersonation options - curl_cffi can mimic TLS fingerprints
+    # This is key to bypassing Cloudflare and similar bot detection
+    impersonate_options = [
+        "chrome120",  # Latest Chrome
+        "chrome119",
+        "safari17_0",
+        "edge120",
+    ]
 
-            with httpx.Client(timeout=timeout, follow_redirects=True) as client:
-                response = client.get(url, headers=headers)
+    last_error = ""
+    for browser in impersonate_options:
+        for attempt in range(max_retries):
+            try:
+                time.sleep(delay)  # Be respectful
+
+                # Use curl_cffi with browser impersonation
+                response = curl_requests.get(
+                    url,
+                    impersonate=browser,
+                    timeout=timeout,
+                    allow_redirects=True,
+                )
 
                 if response.status_code == 403:
-                    return None, f"403 Forbidden - site blocking automated access"
+                    last_error = f"403 Forbidden with {browser}"
+                    break  # Try next browser
 
                 if response.status_code == 404:
                     return None, f"404 Not Found - property listing may have changed"
 
-                response.raise_for_status()
+                if response.status_code >= 400:
+                    last_error = f"HTTP {response.status_code}"
+                    break
+
+                console.print(f"  [green]Success with: {browser}[/]")
                 return BeautifulSoup(response.text, "lxml"), ""
 
-        except httpx.TimeoutException:
-            if attempt < max_retries - 1:
-                console.print(f"  [yellow]Timeout, retrying ({attempt + 1}/{max_retries})...[/]")
-                continue
-            return None, "Request timed out after all retries"
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    console.print(f"  [yellow]Error, retrying ({attempt + 1}/{max_retries})...[/]")
+                    time.sleep(delay * (attempt + 1))  # Exponential backoff
+                    continue
+                last_error = f"Error: {e}"
+                break
 
-        except httpx.HTTPError as e:
-            return None, f"HTTP error: {e}"
+    # Fallback to Playwright if available - can handle JavaScript challenges
+    if PLAYWRIGHT_AVAILABLE:
+        console.print("  [yellow]Trying Playwright (headless browser)...[/]")
+        try:
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080},
+                )
+                page = context.new_page()
 
-    return None, "Max retries exceeded"
+                # Navigate and wait for content to load
+                page.goto(url, wait_until="networkidle", timeout=timeout * 1000)
+
+                # Wait a bit for any JavaScript to execute
+                page.wait_for_timeout(3000)
+
+                # Get page content
+                content = page.content()
+                browser.close()
+
+                if "Access Denied" in content or "blocked" in content.lower():
+                    last_error = "Playwright: Access denied after JS execution"
+                else:
+                    console.print("  [green]Success with Playwright![/]")
+                    return BeautifulSoup(content, "lxml"), ""
+        except Exception as e:
+            last_error = f"Playwright error: {e}"
+    else:
+        console.print("  [yellow]Playwright not available, trying httpx fallback...[/]")
+
+    # Final fallback to httpx
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        }
+        with httpx.Client(timeout=timeout, follow_redirects=True) as client:
+            response = client.get(url, headers=headers)
+            if response.status_code == 200:
+                return BeautifulSoup(response.text, "lxml"), ""
+            last_error = f"httpx fallback: HTTP {response.status_code}"
+    except Exception as e:
+        last_error = f"httpx fallback error: {e}"
+
+    return None, last_error or "All methods failed"
 
 
 def parse_apartments_com(soup: BeautifulSoup, property_info: dict) -> PropertyData:
