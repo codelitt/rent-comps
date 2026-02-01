@@ -1,0 +1,140 @@
+# Dallas TX Metro Configuration
+# Comp collection configuration for the Dallas-Fort Worth metroplex
+
+metro:
+  name: Dallas-Fort Worth
+  slug: dallas_tx
+  state: TX
+
+# Subject property - the property we're analyzing
+subject:
+  name: The Ashton
+  address: 2525 McKinney Ave, Dallas, TX 75201
+  submarket: Uptown Dallas
+  units: 198
+  year_built: 2019
+  stories: 24
+  class: A
+  unit_mix:
+    - type: Studio
+      code: S1
+      beds: 0
+      baths: 1
+      avg_sf: 550
+      units: 42
+    - type: 1BR
+      code: A1
+      beds: 1
+      baths: 1
+      avg_sf: 725
+      units: 98
+    - type: 2BR
+      code: B1
+      beds: 2
+      baths: 2
+      avg_sf: 1150
+      units: 58
+
+# Competitive set properties
+comps:
+  - name: The Residences at The Ritz-Carlton
+    address: 2555 N Pearl St, Dallas, TX 75201
+    apartments_com_id: the-residences-at-the-ritz-carlton-dallas-tx
+    website: https://www.ritzcarltonresidencesdallas.com
+    distance_mi: 0.3
+    units: 188
+    year_built: 2020
+    stories: 25
+    class: A
+
+  - name: The Victor
+    address: 2323 N Houston St, Dallas, TX 75219
+    apartments_com_id: the-victor-dallas-tx
+    website: https://www.thevictordallas.com
+    distance_mi: 0.5
+    units: 344
+    year_built: 2021
+    stories: 29
+    class: A
+
+  - name: Cirque
+    address: 2609 Thomas Ave, Dallas, TX 75204
+    apartments_com_id: cirque-dallas-tx
+    website: https://www.cirqueapts.com
+    distance_mi: 0.4
+    units: 363
+    year_built: 2018
+    stories: 28
+    class: A
+
+  - name: The Taylor
+    address: 2929 Carlisle St, Dallas, TX 75204
+    apartments_com_id: the-taylor-dallas-tx
+    website: https://www.thetaylordallas.com
+    distance_mi: 0.6
+    units: 270
+    year_built: 2017
+    stories: 20
+    class: A
+
+  - name: Amli Design District
+    address: 1400 Hi Line Dr, Dallas, TX 75207
+    apartments_com_id: amli-design-district-dallas-tx
+    website: https://www.amli.com/apartments/dallas/design-district
+    distance_mi: 1.2
+    units: 390
+    year_built: 2015
+    stories: 5
+    class: A
+
+  - name: Alexan Uptown
+    address: 2600 Cedar Springs Rd, Dallas, TX 75201
+    apartments_com_id: alexan-uptown-dallas-tx
+    website: https://www.alexanuptown.com
+    distance_mi: 0.7
+    units: 298
+    year_built: 2019
+    stories: 8
+    class: A
+
+  - name: Gables McKinney Ave
+    address: 2500 McKinney Ave, Dallas, TX 75201
+    apartments_com_id: gables-mckinney-ave-dallas-tx
+    website: https://www.gables.com/communities/texas/dallas/gables-mckinney-ave
+    distance_mi: 0.1
+    units: 215
+    year_built: 2014
+    stories: 6
+    class: A
+
+  - name: The Katy
+    address: 3000 Katy Trail, Dallas, TX 75204
+    apartments_com_id: the-katy-dallas-tx
+    website: https://www.thekatydallas.com
+    distance_mi: 0.8
+    units: 276
+    year_built: 2016
+    stories: 7
+    class: A
+
+# Data collection settings
+collection:
+  radius_miles: 1.5
+  min_comps: 6
+  max_comps: 12
+  unit_types:
+    - Studio
+    - 1BR
+    - 2BR
+    - 3BR
+  data_sources:
+    - apartments.com
+    - property_websites
+    - costar  # requires subscription
+
+# Apartments.com scraping settings (if automated collection is used)
+scraping:
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+  request_delay_seconds: 2
+  max_retries: 3
+  timeout_seconds: 30
