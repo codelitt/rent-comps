@@ -1,1 +1,27 @@
 date,property,address,unit_type,beds,baths,sq_ft,face_rent,effective_rent,rent_psf,units_available,mom_change,yoy_change,notes
+2026-02-01,The Kenzie,"4501 Old Caldwell Mill Rd, Birmingham, AL 35242",Altadena 1x1,1,1,852,950,950,1.12,,,subject property - low end
+2026-02-01,The Kenzie,"4501 Old Caldwell Mill Rd, Birmingham, AL 35242",Hearthstone 1x1,1,1,980,1300,1300,1.33,,,subject property - renovated
+2026-02-01,The Kenzie,"4501 Old Caldwell Mill Rd, Birmingham, AL 35242",Riverwood 2x1,2,1,980,1200,1200,1.22,,,subject property
+2026-02-01,The Kenzie,"4501 Old Caldwell Mill Rd, Birmingham, AL 35242",Cahaba 2x2,2,2,1276,1400,1400,1.10,,,subject property
+2026-02-01,Cahaba Grandview,"2800 Riverview Rd, Birmingham, AL 35242",1BR,1,1,750,1254,1254,1.67,,,newest comp (2009)
+2026-02-01,Cahaba Grandview,"2800 Riverview Rd, Birmingham, AL 35242",1BR Large,1,1,850,1434,1434,1.69,,,newest comp (2009)
+2026-02-01,Cahaba Grandview,"2800 Riverview Rd, Birmingham, AL 35242",2BR,2,2,1100,1454,1454,1.32,,,newest comp (2009)
+2026-02-01,Cahaba Grandview,"2800 Riverview Rd, Birmingham, AL 35242",2BR Large,2,2,1200,1604,1604,1.34,,,newest comp (2009)
+2026-02-01,Turtle Lake Apartment Homes,"1 Turtle Lake Dr, Birmingham, AL 35242",1BR,1,1,870,1225,1225,1.41,,,
+2026-02-01,Turtle Lake Apartment Homes,"1 Turtle Lake Dr, Birmingham, AL 35242",1BR Large,1,1,950,1355,1355,1.43,,,
+2026-02-01,The Abbey at Inverness,"1000 Hunt Cliff Rd, Birmingham, AL 35242",1BR,1,1,800,1054,1054,1.32,,,
+2026-02-01,The Abbey at Inverness,"1000 Hunt Cliff Rd, Birmingham, AL 35242",1BR Large,1,1,900,1144,1144,1.27,,,
+2026-02-01,The Abbey at Inverness,"1000 Hunt Cliff Rd, Birmingham, AL 35242",2BR,2,2,1050,1099,1099,1.05,,,
+2026-02-01,The Abbey at Inverness,"1000 Hunt Cliff Rd, Birmingham, AL 35242",2BR Large,2,2,1150,1354,1354,1.18,,,
+2026-02-01,Colony Woods,"2000 Colony Park Dr, Birmingham, AL 35243",1BR,1,1,800,920,920,1.15,,,
+2026-02-01,Colony Woods,"2000 Colony Park Dr, Birmingham, AL 35243",1BR Large,1,1,950,1290,1290,1.36,,,
+2026-02-01,Colony Woods,"2000 Colony Park Dr, Birmingham, AL 35243",2BR,2,2,1050,1075,1075,1.02,,,
+2026-02-01,Colony Woods,"2000 Colony Park Dr, Birmingham, AL 35243",2BR Large,2,2,1150,1199,1199,1.04,,,
+2026-02-01,The Onyx Hoover,"990 Wisteria Pl, Hoover, AL 35216",1BR,1,1,750,942,942,1.26,,,
+2026-02-01,The Onyx Hoover,"990 Wisteria Pl, Hoover, AL 35216",1BR Large,1,1,850,1035,1035,1.22,,,
+2026-02-01,The Onyx Hoover,"990 Wisteria Pl, Hoover, AL 35216",2BR,2,2,1000,984,984,0.98,,,
+2026-02-01,The Onyx Hoover,"990 Wisteria Pl, Hoover, AL 35216",2BR Large,2,2,1100,1195,1195,1.09,,,
+2026-02-01,Woodmere Creek Apartments,"779 Woodmere Creek Dr, Birmingham, AL 35226",1BR,1,1,850,1125,1125,1.32,,,
+2026-02-01,Woodmere Creek Apartments,"779 Woodmere Creek Dr, Birmingham, AL 35226",1BR Large,1,1,875,1150,1150,1.31,,,
+2026-02-01,Woodmere Creek Apartments,"779 Woodmere Creek Dr, Birmingham, AL 35226",2BR,2,2,1110,1295,1295,1.17,,,
+2026-02-01,Woodmere Creek Apartments,"779 Woodmere Creek Dr, Birmingham, AL 35226",2BR Large,2,2,1175,1405,1405,1.20,,,
