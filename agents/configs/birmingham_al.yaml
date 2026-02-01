@@ -10,6 +10,7 @@ metro:
 subject:
   name: The Kenzie
   address: 4501 Old Caldwell Mill Rd, Birmingham, AL 35242
+  apartments_com_id: the-kenzie-birmingham-al
   submarket: Highway 280 Corridor
   units: 213
   year_built: 1973
